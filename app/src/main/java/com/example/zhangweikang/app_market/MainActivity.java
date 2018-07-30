@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
     private RecyclerView lst;
     private SwipeRefreshLayout srl;
-    RelativeLayout activityMain;
     private Document document;
     private Document document1;
     private List<Goods> mgood;
@@ -49,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bd = new Bundle();
                 bd.putString("a",mgood.get(position).getUrl());
                 main_intent.putExtras(bd);
+                Dingdan.setName(mgood.get(position).getGood_name());
                 MainActivity.this.startActivity(main_intent);
             }
         });

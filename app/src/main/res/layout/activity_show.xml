@@ -38,14 +38,30 @@
         android:layout_gravity="center"
         android:id="@+id/radiogroup2">
     </RadioGroup>
+        <TextView
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tx_ed"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/bt_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#95969f"
+            android:text="详情"
+            android:textColor="@android:color/background_dark"
+            android:typeface="serif" />
+        <Button
+            android:layout_weight="1"
             android:id="@+id/bt1"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@android:color/darker_gray"

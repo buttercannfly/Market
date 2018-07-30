@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShowActivity" />
-        <activity android:name=".Perchase"></activity>
+        <activity android:name=".Perchase" />
+        <activity android:name=".Info"></activity>
     </application>
 
 </manifest>

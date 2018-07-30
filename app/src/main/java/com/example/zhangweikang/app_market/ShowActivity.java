@@ -34,6 +34,8 @@ public class ShowActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioGroup radioGroup2;
     private Button bt;
+    private Button bt_info;
+    private TextView tx_ed;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,10 +87,35 @@ public class ShowActivity extends AppCompatActivity {
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(ShowActivity.this,Perchase.class);
+                for(int i=0;i<radioGroup.getChildCount();i++){
+                    for(int j=0;j<radioGroup2.getChildCount();j++){
+                        RadioButton rd=(RadioButton)radioGroup.getChildAt(i);
+                        RadioButton rd2=(RadioButton)radioGroup2.getChildAt(j);
+                        if(rd.isChecked()&&rd2.isChecked()){
+                            final int haha=i;
+                            final int hia=j;
+                            Intent intent=new Intent(ShowActivity.this,Perchase.class);
+                            Dingdan.setColor(String.valueOf(good_des.get(0).getKinds().get(haha)));
+                            Dingdan.setPrice(good_des.get(0).getPrice());
+                            Dingdan.setSize(String.valueOf(good_des.get(0).getSize().get(hia)));
+                            startActivity(intent);
+                        }
+                    }
+                }
+            }
+        });
+        bt_info=findViewById(R.id.bt_info);
+        bt_info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ShowActivity.this,Info.class);
+                intent.putStringArrayListExtra("array",good_des.get(0).getSpecific());
                 startActivity(intent);
             }
         });
+
+        tx_ed=findViewById(R.id.tx_ed);
+        tx_ed.setText(good_des.get(0).getDict());
     }
     public void jsoupGet(final String url){
         good_des.clear();
@@ -118,6 +145,23 @@ public class ShowActivity extends AppCompatActivity {
                             size.add(element.select("p").text());//
                         }
                         good.setSize(size);
+                        good_des.add(good);
+
+                        Elements spe=noteList.select("div.itemtagcontentpart");
+                        Elements piece=spe.select("table");
+                        ArrayList part=new ArrayList();
+                        for(Element element : piece){
+                            part.add(element.select("img").attr("abs:src"));
+                        }
+                        good.setSpecific(part);
+
+                        Elements dic=noteList.select("div.danpin_YhTsBox.danpin_YhTsTab");
+                        Elements xiao=dic.select("li");
+                        String binary="";
+                        for(Element element : xiao){
+                            binary=binary+element.select("li").text()+"\n";
+                        }
+                        good.setDict(binary);
                         good_des.add(good);
                         lock.notify();
                     }
